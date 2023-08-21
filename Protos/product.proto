@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPCwithDotnet";
+
+import "google/api/annotations.proto";
+
+package product;
+
+
+service product{
+	//create
+		rpc ProductCreate(CreateProductRequest) returns (CreateProductResponse) {
+			option (google.api.http) = {
+				post : "/api/productCreate",
+				body : "*"
+			};
+		}
+	//update
+		rpc ProductUpdate(UpdateProductRequest) returns (UpdateProductResponse) {
+			option (google.api.http) = {
+				post : "/api/productUpdate",
+				body : "*"
+			};
+		}
+	//delete
+		rpc ProductDelete(DeleteProductRequest) returns (DeleteProductResponse) {
+			option (google.api.http) = {
+				post : "/api/productDelete",
+				body : "*"
+			};
+		}
+	//get
+		rpc ProductGetSingle(GetProductSingleRequest) returns (GetProductResponse) {
+			option (google.api.http) = {
+				get : "/api/product/{Id}"
+			};
+		}
+	//gets
+		rpc ProductGetAll(GetAllProductRequest) returns (GetAllProductResponse) {
+				option (google.api.http) = {
+				get : "/api/products"
+			};
+		}
+}
+
+message CreateProductRequest{
+	int32 Id=1;
+	string Name = 2;
+    string Description = 3;
+    double Price = 4;
+    int32 StockQuantity = 5;
+}
+
+message CreateProductResponse{
+	int32 Id=1;
+}
+
+message GetProductSingleRequest{
+	int32 Id=1;
+}
+
+message GetProductResponse{
+	int32 Id=1;
+	string Name = 2;
+    string Description = 3;
+    double Price = 4;
+    int32 StockQuantity = 5;
+}
+
+message GetAllProductRequest{
+}
+
+message GetAllProductResponse{
+	repeated GetProductResponse product = 1;
+}
+
+message UpdateProductRequest{
+	int32 Id=1;
+	string Name = 2;
+    string Description = 3;
+    double Price = 4;
+    int32 StockQuantity = 5;
+}
+
+message UpdateProductResponse{
+	int32 Id=1;
+}
+
+
+message DeleteProductRequest{
+	int32 Id=1;
+}
+message DeleteProductResponse{
+	int32 Id=1;
+}
